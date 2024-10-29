@@ -6,6 +6,8 @@ import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.urlshortener.app.dto.UrlDTO;
+
 import lombok.Data;
 
 @Data
@@ -23,6 +25,12 @@ public class Url implements Serializable {
         this.longUrl = longUrl;
         this.created_At = created_At;
         this.shortUrl = "";
-        clickCount = 0;
+        this.clickCount = 0;
+    }
+    public Url(UrlDTO createUrlDTO){
+        this.longUrl = createUrlDTO.getLongUrl();
+        this.created_At = createUrlDTO.getCreated_At();
+        this.shortUrl = "";
+        this.clickCount = 0;
     }
 }
