@@ -8,10 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.urlshortener.app.dto.UrlDTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Document
+@Document(collection = "urls")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Url implements Serializable {
     private static final Long SerialVersionUID = 1L;
     @Id
