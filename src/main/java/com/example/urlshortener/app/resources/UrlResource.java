@@ -18,8 +18,6 @@ import com.example.urlshortener.app.services.exceptions.ResourceNotFoundExceptio
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @RestController
 @Slf4j
 @RequestMapping
@@ -37,22 +35,22 @@ public class UrlResource {
     @GetMapping("/{shortUrl}")
     public ResponseEntity<Void> redirectToLongUrl(@PathVariable String shortUrl) {
         try {
-            log.info("Recebida requisição para shortUrl: {}", shortUrl);
+            log.info("Received request for shortUrl: {}", shortUrl);
             
             String longUrl = service.getLongUrlAndIncreaseClick(shortUrl);
             
-            log.info("Redirecionando para: {}", longUrl);
+            log.info("Redirecting to: {}", longUrl);
             return ResponseEntity
                 .status(HttpStatus.FOUND)
                 .location(URI.create(longUrl))
                 .build();
                 
         } catch (ResourceNotFoundException e) {
-            log.error("URL não encontrada: {}", shortUrl);
+            log.error("URL not found: {}", shortUrl);
             return ResponseEntity.notFound().build();
             
         } catch (Exception e) {
-            log.error("Erro ao processar shortUrl: {}", shortUrl, e);
+            log.error("Error processing shortUrl: {}", shortUrl, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -60,18 +58,18 @@ public class UrlResource {
     @GetMapping("/status/{shortUrl}")
     public ResponseEntity<String> getStatus(@PathVariable String shortUrl) {
         try {
-            log.info("Recebida requisição para shortUrl: {}", shortUrl);
+            log.info("Received request for shortUrl: {}", shortUrl);
             
             int clicks = service.getStatus(shortUrl);
             
             return ResponseEntity.ok().body(String.valueOf(clicks));
                 
         } catch (ResourceNotFoundException e) {
-            log.error("URL não encontrada: {}", shortUrl);
+            log.error("URL not found: {}", shortUrl);
             return ResponseEntity.notFound().build();
             
         } catch (Exception e) {
-            log.error("Erro ao processar shortUrl: {}", shortUrl, e);
+            log.error("Error processing shortUrl: {}", shortUrl, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
