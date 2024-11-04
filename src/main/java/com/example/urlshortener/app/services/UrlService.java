@@ -23,7 +23,7 @@ public class UrlService {
     public int getStatus(String shortUrl){
         try{
             Optional<Url> url = repository.findClickCountByShortUrl(shortUrl);
-            Url entity = url.orElseThrow(() -> new ResourceNotFoundException("ClickCount doesnt exist"));
+            Url entity = url.orElseThrow(() -> new ResourceNotFoundException("ClickCount from this shortUrl doesnt exists"));
         
             return entity.getClickCount();           
         
@@ -36,7 +36,7 @@ public class UrlService {
         try{
             Optional<Url> url = repository.findByShortUrl(shortUrl);
             repository.incrementClickCount(shortUrl);
-            Url longUrl = url.orElseThrow( () -> new ResourceNotFoundException("Long Url doesn't exist"));
+            Url longUrl = url.orElseThrow( () -> new ResourceNotFoundException("Long Url doesn't exists"));
             
             return longUrl.getLongUrl();
 
