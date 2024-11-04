@@ -11,14 +11,7 @@ public class SecurityConfig {
     @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()  // Desabilita CSRF para facilitar o acesso ao H2
-            .headers().frameOptions().disable()  // Permite o uso de frames (necessário para o H2)
-            .and()
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/h2-console/**").permitAll()  // Permite acesso ao H2 Console
-                .anyRequest().authenticated()  // Todas as outras requisições precisam de autenticação
-            );
+        http.csrf().disable();
         return http.build();
     }
 }
