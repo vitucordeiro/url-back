@@ -30,6 +30,4 @@ public class UrlShortenerUtil {
         }
         return result.toString();
     }
-    Random magicNumber = new Random();
-
 }
