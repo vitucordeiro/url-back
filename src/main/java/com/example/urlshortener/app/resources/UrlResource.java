@@ -1,6 +1,8 @@
 package com.example.urlshortener.app.resources;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import com.example.urlshortener.app.dto.UrlDTO;
 import com.example.urlshortener.app.services.UrlService;
 import com.example.urlshortener.app.services.exceptions.ResourceNotFoundException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -26,10 +29,16 @@ public class UrlResource {
     @Autowired
     private UrlService service;
 
+    @Autowired
+    private HttpServletRequest request;
     @PostMapping("/create")
-    public ResponseEntity<String> createShortenerUrl(@RequestBody UrlDTO urlDTO) {
+    public ResponseEntity<Map<String, String>> createShortenerUrl(@RequestBody UrlDTO urlDTO) {
         String urlShortener = service.createShortenerUrl(urlDTO);
-        return ResponseEntity.ok().body(urlShortener);  
+        String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+        String fullUri = host + "/" + urlShortener;
+        Map<String,String> response = new HashMap<>();
+        response.put("URI", fullUri);
+        return ResponseEntity.ok().body(response);  
     }
     
     @GetMapping("/{shortUrl}")
