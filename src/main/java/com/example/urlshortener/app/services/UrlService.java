@@ -25,7 +25,7 @@ public class UrlService {
         try{
             Optional<Url> url = repository.findClickCountByShortUrl(shortUrl);
             Url entity = url.orElseThrow(() -> new ResourceNotFoundException("ClickCount from this shortUrl doesnt exists"));
-        
+    
             return entity.getClickCount();           
         
         } catch (Exception e ){
@@ -42,7 +42,7 @@ public class UrlService {
             return longUrl.getLongUrl();
 
         } catch (Exception e) {
-            log.error("erro ao buscar url");
+            log.error("Exception on getUrlAndIncreaseClick serivce");
             throw e;
         }
     }
