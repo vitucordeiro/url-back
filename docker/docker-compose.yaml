@@ -28,20 +28,6 @@ services:
     depends_on:
       - mongodb
 
-  app:
-    build:
-      context: ..
-      dockerfile: dockerfile
-    container_name: app
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATA_MONGODB_URI: mongodb://root:example@mongodb:27017/urlshortener
-    networks:
-      - mongodb_network
-    depends_on:
-      - mongodb
-
 networks:
   mongodb_network:
     driver: bridge
