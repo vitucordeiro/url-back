@@ -58,4 +58,8 @@ public class UrlService {
         return url.getShortUrl();    
     }
 
+    public Long getCountOfUrls() {
+      return repository.count();
+    }
+
 }
