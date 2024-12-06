@@ -38,10 +38,18 @@ public class UrlResource {
         String fullUri = host + "/" + urlShortener;
         Map<String,String> response = new HashMap<>();
         response.put("URI", fullUri);
+        System.out.println(response);
         return ResponseEntity.ok().body(response);  
     }
     
-    @GetMapping("/{shortUrl}")
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCountUrlsCreated() {
+        Long count = service.getCountOfUrls();
+    
+        return ResponseEntity.ok().body(count); 
+    }
+
+    @GetMapping("/api/{shortUrl}")
     public ResponseEntity<Void> redirectToLongUrl(@PathVariable String shortUrl) {
         try {
             log.info("Received request for shortUrl: {}", shortUrl);
