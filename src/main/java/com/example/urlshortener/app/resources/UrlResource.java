@@ -31,6 +31,7 @@ public class UrlResource {
 
     @Autowired
     private HttpServletRequest request;
+
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createShortenerUrl(@RequestBody UrlDTO urlDTO) {
         String urlShortener = service.createShortenerUrl(urlDTO);
@@ -49,7 +50,7 @@ public class UrlResource {
         return ResponseEntity.ok().body(count); 
     }
 
-    @GetMapping("/api/{shortUrl}")
+    @GetMapping("/{shortUrl}")
     public ResponseEntity<Void> redirectToLongUrl(@PathVariable String shortUrl) {
         try {
             log.info("Received request for shortUrl: {}", shortUrl);
