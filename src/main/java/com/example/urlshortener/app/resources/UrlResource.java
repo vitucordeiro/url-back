@@ -34,6 +34,7 @@ public class UrlResource {
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createShortenerUrl(@RequestBody UrlDTO urlDTO) {
+        // TODO: create a entity that gets informations about clicker
         String urlShortener = service.createShortenerUrl(urlDTO);
         String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
         String fullUri = host + "/" + urlShortener;
